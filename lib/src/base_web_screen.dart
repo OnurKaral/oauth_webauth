@@ -20,7 +20,7 @@ class BaseWebScreen extends StatelessWidget {
     if (kIsWeb) {
       final baseFlow = BaseFlow()
         ..init(
-          initialUri: Uri.parse(configuration.initialUrl),
+          initialUri: WebUri(configuration.initialUrl),
           redirectUrls: configuration.redirectUrls,
           onSuccessRedirect: configuration.onSuccessRedirect,
           onError: configuration.onError,

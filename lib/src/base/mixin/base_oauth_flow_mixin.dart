@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:oauth_webauth/oauth_webauth.dart';
 
@@ -41,11 +42,14 @@ mixin BaseOAuthFlowMixin on BaseFlowMixin {
       basicAuth: configuration.basicAuth ?? true,
       httpClient: configuration.httpClient,
     );
-    initialUri = authorizationCodeGrant.getAuthorizationUrl(
+
+    initialUri = WebUri(authorizationCodeGrant.getAuthorizationUrl(
       Uri.parse(redirectUrl),
       scopes: configuration.scopes,
-    );
-    initialUri = initialUri.replace(
+    ).toString());
+
+    initialUri = WebUri(
+      initialUri.replace(
         queryParameters: Map.from(initialUri.queryParameters)
           ..addAll({
             'state': const Base64Encoder.urlSafe()
@@ -56,7 +60,9 @@ mixin BaseOAuthFlowMixin on BaseFlowMixin {
               'login_hint': configuration.loginHint,
             if (configuration.promptValues?.isNotEmpty ?? false)
               'prompt': configuration.promptValues!.join(' '),
-          }));
+          }),
+      ).toString(),
+    );
   }
 
   @override

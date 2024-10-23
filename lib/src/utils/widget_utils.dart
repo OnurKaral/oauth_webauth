@@ -46,8 +46,9 @@ extension WidgetUtils on Widget {
       child: RenderPositionedBox(
           alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
-        size: logicalSize,
-        devicePixelRatio: 1.0,
+        logicalConstraints: BoxConstraints.tight(logicalSize),
+        physicalConstraints: BoxConstraints.tight(imageSize),
+        devicePixelRatio: view.devicePixelRatio,
       ),
     );
 

@@ -73,7 +73,7 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
 
   void initBase() {
     init(
-      initialUri: Uri.parse(configuration.initialUrl),
+      initialUri: WebUri(configuration.initialUrl),
       redirectUrls: configuration.redirectUrls,
       onSuccessRedirect: configuration.onSuccessRedirect,
       onError: configuration.onError,
@@ -378,7 +378,7 @@ class BaseWebViewState<S extends BaseWebView> extends State<S>
   Future<void> controllerGo(String url) async {
     showLoading();
     inAppWebViewController?.loadUrl(
-        urlRequest: URLRequest(url: Uri.parse(url), headers: {
+        urlRequest: URLRequest(url: WebUri(url), headers: {
       ...configuration.headers,
       if (configuration.contentLocale != null)
         'Accept-Language': configuration.contentLocale!.toLanguageTag()

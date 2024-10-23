@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:oauth_webauth/oauth_webauth.dart';
 
 mixin BaseFlowMixin {
@@ -13,11 +14,11 @@ mixin BaseFlowMixin {
   /// This function will be called when user cancels authentication.
   VoidCallback? _onCancel;
 
-  Uri initialUri = Uri();
+  WebUri initialUri = WebUri('about:blank');
   final Set<String> redirectUrls = {};
 
   void init({
-    Uri? initialUri,
+    WebUri? initialUri,
     Iterable<String>? redirectUrls,
     ValueChanged<String>? onSuccessRedirect,
     ValueChanged<dynamic>? onError,
